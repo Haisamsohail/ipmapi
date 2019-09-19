@@ -116,4 +116,13 @@ $router->group(['prefix' => 'user'], function () use ($router) {
     $router->post('/EditPageDilution', 'DilutionController@EditPageDilution');
     $router->post('/EditDilution', 'DilutionController@EditDilution');
     /***************** Dilution End   ***********************/
+
+
+    /***************** Reports Start ***********************/
+    $router->post('/SearchActivityReport', 'ActivityReportController@SearchActivityReport');
+    $router->post('/AddDilutionDB', 'DilutionController@AddDilutionDB');
+    $router->post('/DeleteDilution', 'DilutionController@DeleteDilution');
+    $router->post('/EditPageDilution', 'DilutionController@EditPageDilution');
+    $router->post('/EditDilution', 'DilutionController@EditDilution');
+    /***************** Reports End   ***********************/
 });
