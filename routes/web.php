@@ -119,6 +119,7 @@ $router->group(['prefix' => 'user'], function () use ($router) {
 
 
     /***************** Reports Start ***********************/
+    $router->post('/APPInput', 'ActivityReportController@APPInput');
     $router->post('/SearchActivityReport', 'ActivityReportController@SearchActivityReport');
     $router->post('/AddDilutionDB', 'DilutionController@AddDilutionDB');
     $router->post('/DeleteDilution', 'DilutionController@DeleteDilution');

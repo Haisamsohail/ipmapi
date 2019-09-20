@@ -38,6 +38,30 @@
         }
 
 
+        public function APPInput(Request $request)
+        {
+            try
+            {
+                $login = app(ActivityReportModel::class);
+                $response = $login->APPInput();
+                //dd(count($response));
+                if(count($response) > 0)
+                {
+                    return ["status" => "Y", "response" => $response];
+                }
+                else
+                {
+                    return ["status" => "N", "response" => ""];
+                }
+
+            }
+            catch (Exception $ex)
+            {
+                abort(500, 'Internal Server Error');
+            }
+        }
+
+
         public function ActivityReport()
         {
             $ChemicalMod = app(CompanyModel::class);
