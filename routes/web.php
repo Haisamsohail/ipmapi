@@ -77,6 +77,7 @@ $router->group(['prefix' => 'user'], function () use ($router) {
 
     /********** Create Location Start ***************************/
     Route::post('/LocationList', 'LocationController@LocationList');
+    Route::post('/BStation', 'LocationController@BStation');
     Route::post('/AddLocationDB', 'LocationController@AddLocationDB');
     $router->post('/DeleteLocation', 'LocationController@DeleteLocation');
     $router->post('/EditPageLocation', 'LocationController@EditPageLocation');

@@ -79,6 +79,33 @@ class LocationController
         }
     }
 
+
+    public function BStation(Request $request)
+    {
+        $data = $request->getContent();
+        $data = json_decode($data);
+        //dd($data);
+       try
+        {
+            $login = app(LocationModel::class);
+            $response = $login->BStation($data );
+            //dd($response);
+            if(count($response) > 0)
+            {
+                return ["status" => "Y", "response" => $response];
+            }
+            else
+            {
+                return ["status" => "N", "response" => ""];
+            }
+
+        }
+        catch (Exception $ex)
+        {
+            abort(500, 'Internal Server Error');
+        }
+    }
+
     public function AllLocationList(Request $request)
     {
         $data = $request->getContent();

@@ -30,6 +30,16 @@ class LocationModel extends Connection
         return $results;
     }
 
+
+    public function BStation($data )
+    {
+        $Query3 = "SELECT  B.branchname AS branchname, A.stationapplyid AS stationapplyid, A.stationapplyno AS stationapplyno, S.stationname AS stationname, L.branchlocationname AS branchlocationname FROM stationapply A, station S, branchlocation L, branch B  WHERE A.stationid = S.stationid AND A.branchlocationid = L.branchlocationid AND L.branchid = B.branchid AND B.branchid = '{$data->branchid}' AND A.stationapplyactive = 'Y' AND L.branchlocationactive = 'Y'  ORDER BY A.stationapplyno";
+        //dd($Query3);
+        $results = app('db')->connection('hsl')->select($Query3);
+        //dd($results);
+        return $results;
+    }
+
     public function AllLocationList($data )
     {
         $Query3 = "SELECT * FROM branchlocation L WHERE L.branchlocationactive = 'Y'";

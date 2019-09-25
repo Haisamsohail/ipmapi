@@ -17,7 +17,7 @@ class StationApplyModel extends Connection
 	//put your code here
     public function CheckStation($data )
     {
-        $Query3 = "SELECT * FROM stationapply A WHERE A.stationapplyno = '{$data->stationapplyno}' AND A.branchlocationid = '{$data->branchlocationid}' AND A.stationapplyactive = 'Y'";
+        $Query3 = "SELECT * FROM stationapply A, branch B, branchlocation L WHERE A.stationapplyno = '{$data->stationapplyno}' AND A.branchlocationid = L.branchlocationid AND L.branchid = B.branchid AND B.branchid = '{$data->branchid}' AND A.stationapplyactive = 'Y'";
         //dd($Query3);
         $results = app('db')->connection('hsl')->select($Query3);
         //dd($results);
