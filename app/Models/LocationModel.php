@@ -40,6 +40,15 @@ class LocationModel extends Connection
         return $results;
     }
 
+    public function GenerateLabel($data )
+    {
+        $Query3 = "SELECT A.stationapplyid AS stationapplyid, C.companyname AS companyname, L.branchlocationid AS branchlocationid, L.branchlocationname AS branchlocationname, S.stationname AS stationname FROM stationapply A, branchlocation L, branch B, company C, station S WHERE A.stationapplyid = '{$data->stationapplyid}' AND A.branchlocationid = L.branchlocationid AND L.branchid = B.branchid AND B.companyid = C.companyid AND A.stationid = S.stationid";
+        //dd($Query3);
+        $results = app('db')->connection('hsl')->select($Query3);
+        //dd($results);
+        return $results;
+    }
+
     public function AllLocationList($data )
     {
         $Query3 = "SELECT * FROM branchlocation L WHERE L.branchlocationactive = 'Y'";
