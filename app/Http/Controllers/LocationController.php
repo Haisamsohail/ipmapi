@@ -125,7 +125,6 @@ class LocationController
             {
                 return ["status" => "N", "response" => ""];
             }
-
         }
         catch (Exception $ex)
         {
