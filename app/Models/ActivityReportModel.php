@@ -97,4 +97,20 @@ class ActivityReportModel extends Connection
         //dd(gettype($response));
         return $response->body();
     }
+
+
+    public function GetLocations($Datarequest)
+    {
+        $Query3 = "SELECT L.branchlocationid AS branchlocationid, L.branchlocationname AS branchlocationname FROM company C, branch B, branchlocation L WHERE C.companyid = B.companyid AND B.branchid = L.branchid AND B.branchactive = 'Y' AND L.branchlocationactive = 'Y' AND C.companyid = '{$Datarequest->companyid}'";
+        $results = app('db')->connection('hsl')->select($Query3);
+        return $results;
+    }
+
+    public function SearchActivityReportData($Datarequest)
+    {
+        $Query3 = "SELECT L.branchlocationid AS branchlocationid, L.branchlocationname AS branchlocationname FROM company C, branch B, branchlocation L WHERE C.companyid = B.companyid AND B.branchid = L.branchid AND B.branchactive = 'Y' AND L.branchlocationactive = 'Y' AND C.companyid = '{$Datarequest->companyid}'";
+        $results = app('db')->connection('hsl')->select($Query3);
+        return $results;
+    }
+
 }

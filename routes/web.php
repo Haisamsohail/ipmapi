@@ -100,7 +100,7 @@ $router->group(['prefix' => 'user'], function () use ($router) {
     /********** Mobile App Start ***************************/
     Route::post('/ScanQRStationActivity', 'ScanQRStation@ScanQRStationActivity');
     Route::post('/ProcessAcitvity', 'ScanQRStation@ProcessAcitvity');
-    /********** Mobile App End   ***************************/
+    /********** Mobile App EndCheckBoxStationApplyDownload    ***************************/
 
 
     /***************** Chemical Start ***********************/
@@ -123,9 +123,11 @@ $router->group(['prefix' => 'user'], function () use ($router) {
     /***************** Reports Start ***********************/
     $router->post('/APPInput', 'ActivityReportController@APPInput');
     $router->post('/SearchActivityReport', 'ActivityReportController@SearchActivityReport');
+    $router->post('/SearchActivityReportData', 'ActivityReportController@SearchActivityReportData');
     $router->post('/AddDilutionDB', 'DilutionController@AddDilutionDB');
     $router->post('/DeleteDilution', 'DilutionController@DeleteDilution');
     $router->post('/EditPageDilution', 'DilutionController@EditPageDilution');
     $router->post('/EditDilution', 'DilutionController@EditDilution');
+    $router->post('/GetLocations', 'ActivityReportController@GetLocations');
     /***************** Reports End   ***********************/
 });
