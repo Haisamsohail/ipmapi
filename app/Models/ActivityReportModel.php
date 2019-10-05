@@ -108,7 +108,7 @@ class ActivityReportModel extends Connection
 
     public function SearchActivityReportData($Datarequest)
     {
-        $Query3 = "SELECT L.branchlocationid AS branchlocationid, L.branchlocationname AS branchlocationname FROM company C, branch B, branchlocation L WHERE C.companyid = B.companyid AND B.branchid = L.branchid AND B.branchactive = 'Y' AND L.branchlocationactive = 'Y' AND C.companyid = '{$Datarequest->companyid}'";
+        $Query3 = "SELECT DISTINCT(S.stationid) AS stationid, S.stationname AS stationname FROM station S, stationapply SA, branchlocation L WHERE S.stationactive = 'Y' AND S.stationid = SA.stationid AND SA.branchlocationid = L.branchlocationid AND L.branchlocationid = '{$Datarequest->branchlocationid}'";
         $results = app('db')->connection('hsl')->select($Query3);
         return $results;
     }
