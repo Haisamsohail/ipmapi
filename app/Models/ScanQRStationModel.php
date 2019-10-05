@@ -37,10 +37,21 @@
             return $results;
         }
 
+        public function MaxAppInsertID($data)
+        {
+            //dd($data);
+            //var_dump($data);
+            $Query3 = "SELECT MAX(P.appinsertid) AS MAXAppInsertID FROM processacitvity P WHERE P.createdby = '{$data->createdby}'";
+            //// dd($Query1);
+            $results = app('db')->connection('hsl')->select($Query3);
+            //dd($results);
+            return $results;
+        }
+
         public function ProcessAcitvity($data)
         {
-            $Query2 = "INSERT INTO processacitvity (stationid, activityid, activitytype, outputcheckbox, outputnumber, outputobservationtext, outputobservationImage, outputfumigationchemicalid, outputfumigationchemicaldai, outputfumigationchemicalconsumption, correcticeactionnumber, correcticeactionimage, correcticeactionrootcase, correcticeactioncorrection, correcticeactionupdate) 
-                    VALUES ( {$data->stationid}, {$data->activityid}, '{$data->activitytype}', '{$data->outputcheckbox}', '{$data->outputnumber}', '{$data->outputobservationtext}', '{$data->outputobservationImage}', '{$data->outputfumigationchemicalid}', '{$data->outputfumigationchemicaldai}', '{$data->outputfumigationchemicalconsumption}', '{$data->correcticeactionnumber}', '{$data->correcticeactionimage}', '{$data->correcticeactionrootcase}', '{$data->correcticeactioncorrection}', '{$data->correcticeactionupdate}' )";
+            $Query2 = "INSERT INTO processacitvity (stationid, activityid, activitytype, outputcheckbox, outputnumber, outputobservationtext, outputobservationImage, outputfumigationchemicalid, outputfumigationchemicaldai, outputfumigationchemicalconsumption, correcticeactionnumber, correcticeactionimage, correcticeactionrootcase, correcticeactioncorrection, correcticeactionupdate, createdby, appinsertid) 
+                    VALUES ( {$data->stationid}, {$data->activityid}, '{$data->activitytype}', '{$data->outputcheckbox}', '{$data->outputnumber}', '{$data->outputobservationtext}', '{$data->outputobservationImage}', '{$data->outputfumigationchemicalid}', '{$data->outputfumigationchemicaldai}', '{$data->outputfumigationchemicalconsumption}', '{$data->correcticeactionnumber}', '{$data->correcticeactionimage}', '{$data->correcticeactionrootcase}', '{$data->correcticeactioncorrection}', '{$data->correcticeactionupdate}', {$data->createdby}, {$data->appinsertid} )";
         //dd($Query2);
 		$results = app('db')->connection('hsl')->insert($Query2);
 		//dd($results);

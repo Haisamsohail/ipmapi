@@ -100,6 +100,7 @@ $router->group(['prefix' => 'user'], function () use ($router) {
     /********** Mobile App Start ***************************/
     Route::post('/ScanQRStationActivity', 'ScanQRStation@ScanQRStationActivity');
     Route::post('/ProcessAcitvity', 'ScanQRStation@ProcessAcitvity');
+    Route::post('/MaxAppInsertID', 'ScanQRStation@MaxAppInsertID');
     /********** Mobile App EndCheckBoxStationApplyDownload    ***************************/
 
 
