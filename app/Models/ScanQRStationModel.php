@@ -68,6 +68,15 @@
             return $results;
         }
 
+        public function CheckAppStatus($data)
+        {
+            $Query3 = "SELECt * FROM ecoapp E WHERE E.activeststus = 'Y' ";
+            //dd($Query3);
+            $results = app('db')->connection('hsl')->select($Query3);
+            //dd($results);
+            return $results;
+        }
+
 
         public function EditStation($data)
         {

@@ -46,6 +46,15 @@ class CompanyModel extends Connection
         return $results;
     }
 
+    public function CompanyListAPP($data)
+    {
+        $Query3 = "SELECT C.companyid AS companyid, C.companyname AS companyname, I.industrytypename AS industrytypename FROM company C, industrytype I, usercompany U WHERE C.companyindustrytypeid = I.industrytypeid AND C.companyactive = 'Y' AND C.companyid = U.companyid AND U.userid = '{$data->userid}'";
+        //// dd($Query1);
+        $results = app('db')->connection('hsl')->select($Query3);
+        //dd($results);
+        return $results;
+    }
+
     public function DeleteCompany($data)
     {
         $Query4 = "UPDATE company SET companyactive = 'N' WHERE companyid = '{$data->companyid}'";

@@ -86,10 +86,36 @@
             {
                 $login = app(ScanQRStationModel::class);
                 $response = $login->MaxAppInsertID($data);
-                dd(($response[0]->MAXAppInsertID));
+                //dd(($response[0]->MAXAppInsertID));
                 if($response > 0)
                 {
                     return ["status" => "Y", "response" => $response[0]->MAXAppInsertID];
+                }
+                else
+                {
+                    return ["status" => "N", "response" => 1];
+                }
+            }
+            catch (Exception $ex)
+            {
+                abort(500, 'Internal Server Error');
+            }
+        }
+
+
+        public function CheckAppStatus(Request $request)
+        {
+            $data = $request->getContent();
+            $data = json_decode($data);
+            //dd($data);
+            try
+            {
+                $login = app(ScanQRStationModel::class);
+                $response = $login->CheckAppStatus($data);
+                //dd($response);
+                if($response == true)
+                {
+                    return ["status" => "Y", "response" => $response];
                 }
                 else
                 {

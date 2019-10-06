@@ -108,7 +108,35 @@ class ActivityReportModel extends Connection
 
     public function SearchActivityReportData($Datarequest)
     {
-        $Query3 = "SELECT DISTINCT(S.stationid) AS stationid, S.stationname AS stationname FROM station S, stationapply SA, branchlocation L WHERE S.stationactive = 'Y' AND S.stationid = SA.stationid AND SA.branchlocationid = L.branchlocationid AND L.branchlocationid = '{$Datarequest->branchlocationid}'";
+        $LocationSet  = "";
+        if ($Datarequest->branchlocationid == 'All')
+        {
+            $LocationSet  = "";
+        }
+        else
+        {
+            $LocationSet  = " AND L.branchlocationid = '{$Datarequest->branchlocationid}'";
+        }
+
+        $Query3 = "SELECT DISTINCT(S.stationid) AS stationid, S.stationname AS stationname, L.branchlocationid AS branchlocationid, L.branchlocationname AS branchlocationname, C.companyname AS companyname FROM station S, stationapply SA, branchlocation L, branch B, company C WHERE S.stationid = SA.stationid AND SA.branchlocationid = L.branchlocationid AND L.branchid = B.branchid AND B.companyid = C.companyid AND C.companyid = '{$Datarequest->companyid}' $LocationSet group by stationname ORDER BY  stationname";
+
+        $results = app('db')->connection('hsl')->select($Query3);
+        return $results;
+    }
+
+    public function SearchActivityReportDataByLocAndStation($Datarequest)
+    {
+        $LocationSet  = "";
+        if ($Datarequest->branchlocationid == 'All')
+        {
+            $LocationSet  = "";
+        }
+        else
+        {
+            $LocationSet  = " AND L.branchlocationid = '{$Datarequest->branchlocationid}'";
+        }
+         $Query3 = "SELECT S.stationid AS stationid, S.stationname AS stationname, L.branchlocationid AS branchlocationid, L.branchlocationname AS branchlocationname, C.companyname AS companyname, SA.stationapplyno AS stationapplyno FROM station S, stationapply SA, branchlocation L, branch B, company C WHERE /*S.stationactive = 'Y' AND*/ S.stationid = SA.stationid AND SA.branchlocationid = L.branchlocationid AND L.branchid = B.branchid AND B.companyid = C.companyid AND C.companyid = '{$Datarequest->companyid}' $LocationSet AND S.stationid = '{$Datarequest->stationid}' ORDER BY branchlocationname, stationapplyno";
+
         $results = app('db')->connection('hsl')->select($Query3);
         return $results;
     }

@@ -99,8 +99,10 @@ $router->group(['prefix' => 'user'], function () use ($router) {
 
     /********** Mobile App Start ***************************/
     Route::post('/ScanQRStationActivity', 'ScanQRStation@ScanQRStationActivity');
+    Route::post('/CompanyListAPP', 'CompanyController@CompanyListAPP');
     Route::post('/ProcessAcitvity', 'ScanQRStation@ProcessAcitvity');
     Route::post('/MaxAppInsertID', 'ScanQRStation@MaxAppInsertID');
+    Route::post('/CheckAppStatus', 'ScanQRStation@CheckAppStatus');
     /********** Mobile App EndCheckBoxStationApplyDownload    ***************************/
 
 
@@ -130,5 +132,6 @@ $router->group(['prefix' => 'user'], function () use ($router) {
     $router->post('/EditPageDilution', 'DilutionController@EditPageDilution');
     $router->post('/EditDilution', 'DilutionController@EditDilution');
     $router->post('/GetLocations', 'ActivityReportController@GetLocations');
+    $router->post('/SearchActivityReportDataByLocAndStation', 'ActivityReportController@SearchActivityReportDataByLocAndStation');
     /***************** Reports End   ***********************/
 });

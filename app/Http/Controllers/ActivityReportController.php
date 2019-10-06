@@ -195,4 +195,22 @@
                 return ["status" => "N", "response" => ""];
             }
         }
+
+        public function SearchActivityReportDataByLocAndStation(Request $request )
+        {
+            $data = $request->getContent();
+            $data = json_decode($data);
+            //dd($data);
+            $SearchActivityReportDataObject = app(ActivityReportModel::class);
+            $response = $SearchActivityReportDataObject->SearchActivityReportDataByLocAndStation($data);
+            //dd($response);
+            if(count($response) > 0)
+            {
+                return ["status" => "Y", "response" => $response];
+            }
+            else
+            {
+                return ["status" => "N", "response" => ""];
+            }
+        }
     }

@@ -107,6 +107,32 @@ class CompanyController
         }
     }
 
+    public function CompanyListAPP(Request $request)
+    {
+        $data = $request->getContent();
+        $data = json_decode($data);
+        try
+        {
+            $login = app(CompanyModel::class);
+            $response = $login->CompanyListAPP($data);
+            //dd(($response));
+            if(count($response) > 0)
+            {
+                return ["status" => "Y", "response" => $response];
+            }
+            else
+            {
+                return ["status" => "N", "response" => ""];
+            }
+
+        }
+        catch (Exception $ex)
+        {
+            abort(500, 'Internal Server Error');
+        }
+    }
+
+
 
     public function DeleteCompany(Request $request)
     {
