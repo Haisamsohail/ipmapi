@@ -133,5 +133,6 @@ $router->group(['prefix' => 'user'], function () use ($router) {
     $router->post('/EditDilution', 'DilutionController@EditDilution');
     $router->post('/GetLocations', 'ActivityReportController@GetLocations');
     $router->post('/SearchActivityReportDataByLocAndStation', 'ActivityReportController@SearchActivityReportDataByLocAndStation');
+    $router->post('/DailyActicityCount', 'ActivityReportController@DailyActicityCount');
     /***************** Reports End   ***********************/
 });

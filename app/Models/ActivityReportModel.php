@@ -106,6 +106,14 @@ class ActivityReportModel extends Connection
         return $results;
     }
 
+    public function DailyActicityCount($Datarequest)
+    {
+        $Query3 = "SELECT COUNT(*) AS CounT FROM processacitvity I WHERE I.activestatus = 'Y' AND I.stationid = '{$Datarequest->stationid}' AND I.activityid = '{$Datarequest->activityid}'";
+        $results = app('db')->connection('hsl')->select($Query3);
+        return $results;
+    }
+
+
     public function SearchActivityReportData($Datarequest)
     {
         $LocationSet  = "";
