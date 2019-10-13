@@ -8,7 +8,6 @@ use App\Http\HttpClientCommunication;
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-
 /**
  * Description of UserLogin
  *
@@ -16,13 +15,11 @@ use App\Http\HttpClientCommunication;
  */
 class ActivityReportModel extends Connection
 {
-	const END_POINT_USER = 'user/';
+    const END_POINT_USER = 'user/';
     public function __construct()
     {
-            parent::__construct();
+        parent::__construct();
     }
-
-
     public function APPInput()
     {
         //dd("AAA");
@@ -32,23 +29,18 @@ class ActivityReportModel extends Connection
         //dd($results);
         return $results;
     }
-
-
-
-	public function AddStationDB($stationname, $stationdescription )
-	{
-		$data = array('stationname' => $stationname, 'stationdescription' => $stationdescription);
-		//dd($data);	
+    public function AddStationDB($stationname, $stationdescription )
+    {
+        $data = array('stationname' => $stationname, 'stationdescription' => $stationdescription);
+        //dd($data);
         $AddStationDBCallAPI = app(HttpClientCommunication::class);
-		
-		$response = $AddStationDBCallAPI->storeData(self::END_POINT_USER."AddStation", $data, true);
-		//dd($response);
-		//$array =  (array) $response;
-		//dd(gettype($response));
-		return $response->body();
-	}
 
-
+        $response = $AddStationDBCallAPI->storeData(self::END_POINT_USER."AddStation", $data, true);
+        //dd($response);
+        //$array =  (array) $response;
+        //dd(gettype($response));
+        return $response->body();
+    }
     public function SearchActivityReport($Datarequest)
     {
         //dd("AAA");
@@ -58,7 +50,6 @@ class ActivityReportModel extends Connection
         //dd($results);
         return $results;
     }
-
     public function DeleteStation($stationid)
     {
         $data = array();
@@ -70,8 +61,6 @@ class ActivityReportModel extends Connection
         //dd(gettype($response));
         return $response->body();
     }
-
-
     public function EditPageStation($stationid)
     {
         $data = array();
@@ -83,8 +72,6 @@ class ActivityReportModel extends Connection
         //dd(gettype($response));
         return $response->body();
     }
-
-
     public function EditStation($stationname, $stationdescription, $stationid)
     {
         $data = array();
@@ -97,23 +84,25 @@ class ActivityReportModel extends Connection
         //dd(gettype($response));
         return $response->body();
     }
-
-
     public function GetLocations($Datarequest)
     {
         $Query3 = "SELECT L.branchlocationid AS branchlocationid, L.branchlocationname AS branchlocationname FROM company C, branch B, branchlocation L WHERE C.companyid = B.companyid AND B.branchid = L.branchid AND B.branchactive = 'Y' AND L.branchlocationactive = 'Y' AND C.companyid = '{$Datarequest->companyid}'";
         $results = app('db')->connection('hsl')->select($Query3);
         return $results;
     }
-
     public function DailyActicityCount($Datarequest)
     {
-        $Query3 = "SELECT COUNT(*) AS CounT FROM processacitvity I WHERE I.activestatus = 'Y' AND I.stationid = '{$Datarequest->stationid}' AND I.activityid = '{$Datarequest->activityid}'";
+        $DatarequestDate = explode ("-", $Datarequest->daterange);
+        $Query3 = "SELECT COUNT(*) AS CounT FROM processacitvity I WHERE I.activestatus = 'Y' AND I.stationid = '{$Datarequest->stationid}' AND I.activityid = '{$Datarequest->activityid}' AND I.createddate BETWEEN STR_TO_DATE('$DatarequestDate[0]', '%d/%m/%Y') AND STR_TO_DATE('$DatarequestDate[1]', '%d/%m/%Y')";
+        //$Query3 = "SELECT COUNT(*) AS CounT FROM processacitvity I WHERE I.activestatus = 'Y' AND I.stationid = '{$Datarequest->stationid}' AND I.activityid = '{$Datarequest->activityid}'";
+        //$Query3 = "exec DailyActicity({$Datarequest->activityid},{$Datarequest->stationid})";
+        //$Query3 = "EXEC DailyActicity({$Datarequest->activityid},{$Datarequest->stationid})";
+        //$Query3 = "SET @p0='{$Datarequest->activityid}'; SET @p1='{$Datarequest->stationid}'; CALL 'DailyActicity'(@p0, @p1);";
+
+        //$results = app('db')->connection('hsl')->select("call DailyActicity(?, ?)", [$Datarequest->activityid, $Datarequest->stationid]);
         $results = app('db')->connection('hsl')->select($Query3);
         return $results;
     }
-
-
     public function SearchActivityReportData($Datarequest)
     {
         $LocationSet  = "";
@@ -125,13 +114,10 @@ class ActivityReportModel extends Connection
         {
             $LocationSet  = " AND L.branchlocationid = '{$Datarequest->branchlocationid}'";
         }
-
         $Query3 = "SELECT DISTINCT(S.stationid) AS stationid, S.stationname AS stationname, L.branchlocationid AS branchlocationid, L.branchlocationname AS branchlocationname, C.companyname AS companyname FROM station S, stationapply SA, branchlocation L, branch B, company C WHERE S.stationid = SA.stationid AND SA.branchlocationid = L.branchlocationid AND L.branchid = B.branchid AND B.companyid = C.companyid AND C.companyid = '{$Datarequest->companyid}' $LocationSet group by stationname ORDER BY  stationname";
-
         $results = app('db')->connection('hsl')->select($Query3);
         return $results;
     }
-
     public function SearchActivityReportDataByLocAndStation($Datarequest)
     {
         $LocationSet  = "";
@@ -143,10 +129,8 @@ class ActivityReportModel extends Connection
         {
             $LocationSet  = " AND L.branchlocationid = '{$Datarequest->branchlocationid}'";
         }
-         $Query3 = "SELECT S.stationid AS stationid, S.stationname AS stationname, L.branchlocationid AS branchlocationid, L.branchlocationname AS branchlocationname, C.companyname AS companyname, SA.stationapplyno AS stationapplyno FROM station S, stationapply SA, branchlocation L, branch B, company C WHERE /*S.stationactive = 'Y' AND*/ S.stationid = SA.stationid AND SA.branchlocationid = L.branchlocationid AND L.branchid = B.branchid AND B.companyid = C.companyid AND C.companyid = '{$Datarequest->companyid}' $LocationSet AND S.stationid = '{$Datarequest->stationid}' ORDER BY branchlocationname, stationapplyno";
-
+        $Query3 = "SELECT SA.stationapplyid AS stationapplyid, S.stationid AS stationid, S.stationname AS stationname, L.branchlocationid AS branchlocationid, L.branchlocationname AS branchlocationname, C.companyname AS companyname, SA.stationapplyno AS stationapplyno FROM station S, stationapply SA, branchlocation L, branch B, company C WHERE /*S.stationactive = 'Y' AND*/ S.stationid = SA.stationid AND SA.branchlocationid = L.branchlocationid AND L.branchid = B.branchid AND B.companyid = C.companyid AND C.companyid = '{$Datarequest->companyid}' $LocationSet AND S.stationid = '{$Datarequest->stationid}' ORDER BY branchlocationname, stationapplyno";
         $results = app('db')->connection('hsl')->select($Query3);
         return $results;
     }
-
 }
