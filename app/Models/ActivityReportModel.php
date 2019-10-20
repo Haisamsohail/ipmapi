@@ -92,7 +92,8 @@ class ActivityReportModel extends Connection
     }
     public function DailyActicityCount($Datarequest)
     {
-        //$DatarequestDate = explode ("-", $Datarequest->daterange);
+        $DatarequestDate = explode ("-", $Datarequest->daterange);
+        //dd($Datarequest);
         $Query3 = "SELECT I.activityid, COUNT(I.activityid) AS CounT FROM processacitvity I WHERE I.activestatus = 'Y' AND I.stationid = '{$Datarequest->stationid}' AND I.activityid IN (".(implode(',', $Datarequest->activityids)).")  group by I.activityid";
         //$Query3 = "SELECT COUNT(*) AS CounT FROM processacitvity I WHERE I.activestatus = 'Y' AND I.stationid = '{$Datarequest->stationid}' AND I.activityid = '{$Datarequest->activityid}'";
         //$Query3 = "exec DailyActicity({$Datarequest->activityid},{$Datarequest->stationid})";
