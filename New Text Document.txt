@@ -1,0 +1,17 @@
+SELECT 
+    A.activityid,
+	COUNT(I.activityid) AS CounT
+FROM
+    activity A 
+    left join processacitvity I
+    on I.activityid = A.activityid and I.stationid = '29' AND I.activestatus = 'Y'
+where A.activityid IN (59,52,53,54,55,56) 
+		AND  A.activityactive = 'Y'
+GROUP BY I.activityid
+
+
+
+
+/*
+
+SELECT * FROM processacitvity P WHERE P.stationid = '28'*/
