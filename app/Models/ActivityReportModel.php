@@ -92,23 +92,9 @@ class ActivityReportModel extends Connection
     }
     public function DailyActicityCount($Datarequest)
     {
-<<<<<<< HEAD
-        //$DatarequestDate = explode ("-", $Datarequest->daterange);
-        //$Query3 = "SELECT I.activityid, COUNT(I.activityid) AS CounT FROM processacitvity I WHERE I.activestatus = 'Y' AND I.stationid = '{$Datarequest->stationid}' AND I.activityid IN (".(implode(',', $Datarequest->activityids)).")  group by I.activityid";
-
+        $DatarequestDate = explode ("-", $Datarequest->daterange);
         $Query3 = "SELECT A.activityid, COUNT(I.activityid) AS CounT FROM activity A left join processacitvity I on I.activityid = A.activityid and I.stationid = '{$Datarequest->stationid}' AND I.activestatus = 'Y' where A.activityid IN (".(implode(',', $Datarequest->activityids)).") GROUP BY I.activityid ORDER BY I.activityid DESC";
 
-
-
-=======
-        $DatarequestDate = explode ("-", $Datarequest->daterange);
-        //dd($Datarequest);
-        $Query3 = "SELECT I.activityid, COUNT(I.activityid) AS CounT FROM processacitvity I WHERE I.activestatus = 'Y' AND I.stationid = '{$Datarequest->stationid}' AND I.activityid IN (".(implode(',', $Datarequest->activityids)).")  group by I.activityid";
->>>>>>> 7b9d86dbb8794f5b9be356dace1e800779d85edb
-        //$Query3 = "SELECT COUNT(*) AS CounT FROM processacitvity I WHERE I.activestatus = 'Y' AND I.stationid = '{$Datarequest->stationid}' AND I.activityid = '{$Datarequest->activityid}'";
-        //$Query3 = "exec DailyActicity({$Datarequest->activityid},{$Datarequest->stationid})";
-        //$Query3 = "EXEC DailyActicity({$Datarequest->activityid},{$Datarequest->stationid})";
-        //$Query3 = "SET @p0='{$Datarequest->activityid}'; SET @p1='{$Datarequest->stationid}'; CALL 'DailyActicity'(@p0, @p1);";
 
         //$results = app('db')->connection('hsl')->select("call DailyActicity(?, ?)", [$Datarequest->activityid, $Datarequest->stationid]);
         $results = app('db')->connection('hsl')->select($Query3);
